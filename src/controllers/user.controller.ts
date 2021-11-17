@@ -14,18 +14,19 @@ export const signIn = async(req:Request, res:Response)=>{
         if(!user){
             return res.json(400).json({err:"User does not exist"})
         }
-        await user.comparePassword(password);
+        const isValid = await user.comparePassword(password);
+        if (!isValid) {
+            return res.status(409).json({ error: "Invalid password" });
+        }
         const payload: IToken = {
             id:user._id,
             email: user.email
         }
-        
-        const token = jwt.sign(payload, config.jwt.secret,
-        {
+        const token = jwt.sign(payload, config.jwt.secret,{
             expiresIn: "1d"
         })
 
-        return res.status(200).json({token, user_id: user._id})
+        return res.status(200).json({token, user_id: user._id}) 
     }catch(err: any){
         return res.status(400).json({err: err.message})
     }

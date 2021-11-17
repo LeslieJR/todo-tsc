@@ -30,9 +30,9 @@ const userSchema = new mongoose_1.Schema({
 });
 userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (this.isModified("password")) {
-            return next();
-        }
+        //if(this.isModified("password")){
+        //    return next()
+        //}
         const salt = yield bcrypt_1.default.genSalt(10);
         const hash = yield bcrypt_1.default.hash(this.password, salt);
         this.password = hash;
@@ -41,7 +41,14 @@ userSchema.pre('save', function (next) {
 });
 userSchema.methods.comparePassword = function (password) {
     return __awaiter(this, void 0, void 0, function* () {
-        return bcrypt_1.default.compare(password, this.password);
+        console.log(password);
+        console.log(this.password);
+        const match = yield bcrypt_1.default.compare(password, this.password);
+        console.log(match);
+        if (match) {
+            return true;
+        }
+        return false;
     });
 };
 exports.default = (0, mongoose_1.model)("User", userSchema);

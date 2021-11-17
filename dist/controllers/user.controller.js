@@ -26,7 +26,10 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!user) {
             return res.json(400).json({ err: "User does not exist" });
         }
-        yield user.comparePassword(password);
+        const isValid = yield user.comparePassword(password);
+        if (!isValid) {
+            return res.status(409).json({ error: "Invalid password" });
+        }
         const payload = {
             id: user._id,
             email: user.email
