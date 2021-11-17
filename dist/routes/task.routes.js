@@ -8,7 +8,7 @@ const passport_1 = __importDefault(require("passport"));
 const controllers_1 = __importDefault(require("../controllers"));
 const router = (0, express_1.Router)();
 router.post('/create-task', passport_1.default.authenticate("jwt", { session: false }), controllers_1.default.createTask);
-router.get('/all', passport_1.default.authenticate("jwt", { session: false }), controllers_1.default.getAll);
+router.get('/all/:user_id', passport_1.default.authenticate("jwt", { session: false }), controllers_1.default.getAll);
 router.get('/get/:id', passport_1.default.authenticate("jwt", { session: false }), controllers_1.default.getTask);
 router.put('/update/:id', passport_1.default.authenticate("jwt", { session: false }), controllers_1.default.updateTask);
 router.delete('/remove/:id', passport_1.default.authenticate("jwt", { session: false }), controllers_1.default.deleteTask);

@@ -7,7 +7,7 @@ router.post('/create-task', passport.authenticate("jwt",
 {session: false}),
 controllers.createTask)
 
-router.get('/all',passport.authenticate("jwt", 
+router.get('/all/:user_id',passport.authenticate("jwt", 
 {session: false}), controllers.getAll);
 
 router.get('/get/:id',passport.authenticate("jwt", 

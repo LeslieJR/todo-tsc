@@ -77,7 +77,7 @@ const deleteTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.deleteTask = deleteTask;
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { user_id } = req.body;
+        const { user_id } = req.params;
         const user = yield models_1.default.user.findById(user_id);
         if (!user) {
             return res.status(400).json({ err: 'This user does not exist' });

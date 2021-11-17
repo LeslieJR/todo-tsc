@@ -34,7 +34,7 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const token = jsonwebtoken_1.default.sign(payload, config_1.default.jwt.secret, {
             expiresIn: "1d"
         });
-        return res.status(200).json(token);
+        return res.status(200).json({ token, user_id: user._id });
     }
     catch (err) {
         return res.status(400).json({ err: err.message });

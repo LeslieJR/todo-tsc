@@ -19,12 +19,13 @@ export const signIn = async(req:Request, res:Response)=>{
             id:user._id,
             email: user.email
         }
+        
         const token = jwt.sign(payload, config.jwt.secret,
         {
             expiresIn: "1d"
         })
 
-        return res.status(200).json(token)
+        return res.status(200).json({token, user_id: user._id})
     }catch(err: any){
         return res.status(400).json({err: err.message})
     }

@@ -63,7 +63,7 @@ export const deleteTask = async(req:Request, res:Response)=>{
 
 export const getAll = async(req:Request, res:Response)=>{
     try{
-        const {user_id} = req.body;
+        const {user_id} = req.params;
         const user = await models.user.findById(user_id);
         if(!user){
             return res.status(400).json({err: 'This user does not exist'})
